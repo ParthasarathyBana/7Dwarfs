@@ -1,0 +1,6 @@
+[submodule "neato_robot"]
+	path = neato_robot
+	url = https://github.com/KIT-MRT/neato_robot
+[submodule "ros_comm_msgs"]
+	path = ros_comm_msgs
+	url = https://github.com/ros/ros_comm_msgs
