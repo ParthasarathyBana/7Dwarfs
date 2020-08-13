@@ -1,21 +1,23 @@
 # 7Dwarfs
 
+Following instructions have been tested on ROS Version **melodic** installed as `ros-desktop-full-install` on Ubuntu 18.04.4(bionic) on the laptop + raspberry pi where the raspberry pi was Raspberry Pi 4 Model B.
 ## Setup
 
 ### Install packages:
-Tested on ROS Version: melodic
 
 #### Standard ROS Packages
 * move-base
 * map-server
 
-#### CHARISMA packages
+#### CHARISMA packages 
+
 **On raspberry pi:**
-* https://github.com/charisma-lab/neato_controller 
-* https://github.com/KIT-MRT/neato_robot
+* https://github.com/charisma-lab/neato_controller (7dwarves branch)
+* https://github.com/charisma-lab/neato_planner (master branch)
+* https://github.com/KIT-MRT/neato_robot  (hydro-devel branch) (Used specifically for the Neato D5 Connected model -- our lab has the Neato D80/85 models)
 
 **On laptop:**
-* https://github.com/charisma-lab/neato_localization 
+* https://github.com/charisma-lab/neato_localization (master branch)
 
 #### How to install?
 * `git clone` them in `catkin_ws/src`
@@ -35,21 +37,17 @@ On the laptop, as well as the raspberry pi make sure you have the following bash
 
 ## Running the system:
 
-### On the laptop
+You will need multiple terminals.Make sure not to confuse the laptop's terminals with the ones where you are running a SSH session with the raspberry pi
 
-You will need three terminals.
 
-1. In first terminal, run `roslaunch neato_localization neato_localization`. This is to start localization package. Using the overhead camera it will start the localizer and publish poses and orientation of all the markers it sees.
-1. In second terminal, run `rosrun neato_localization gen_behavior_trajectory.py`. This is to generate path for a particular emotion, you'll see a prompt for entering the emotion condition. 
-3. In a third terminal, run `rviz`. This is just for visualization. Once rviz starts...*instructions to be added*
+0. Edit `catkin_ws/src/neato_localization/scripts/tracking_aruco_markers.py` to change camera number, on the laptop.
+1. In first terminal, run `roslaunch neato_localization neato_localization.launch`. This is to start localization package. Using the overhead camera it will start the localizer and publish poses and orientation of all the markers it sees, on the laptop.
+1. In first terminal, run `roslaunch neato_controller bringup.launch`. This is to start neato robot's low level driver, on the raspberry pi.
+1. In second terminal, run `rosrun neato_localization gen_behavior_trajectory.py`. This is to generate path for a particular emotion, you'll see a prompt for entering the emotion condition, on the raspberry pi. 
+1. In second terminal, run `roslaunch neato_planner pure_pursuit.launch`. The path generated from gen_trajectory_behavior, will now be fetched by this node and then implemented by the robot, on the raspberry pi.
+1. In a third terminal, run `rviz` This is just for visualization. Once rviz starts...*instructions to be added*
 
-### On the raspberry pi
-
-You will need two terminals again. Make sure not to confuse the laptop's terminals with the ones where you are running a SSH session with the raspberry pi
-
-1. In first terminal, run `roslaunch neato_controller bringup.launch`. This is to start neato robot's low level driver.
-2. In second terminal, run `roslaunch neato_planner pure_pursuit.launch`. The path generated from gen_trajectory_behavior, will now be fetched by this node and then implemented by the robot.
-
+### 
 
 ## Troubleshooting: 
 * Make sure the laptop and the raspberry pi  are connected to the same network router.
