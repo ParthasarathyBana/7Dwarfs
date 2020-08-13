@@ -3,7 +3,13 @@
 ## Setup
 
 ### Install packages:
+Tested on ROS Version: melodic
 
+#### Standard ROS Packages
+* move-base
+* map-server
+
+#### CHARISMA packages
 **On raspberry pi:**
 * https://github.com/charisma-lab/neato_controller 
 * https://github.com/KIT-MRT/neato_robot
