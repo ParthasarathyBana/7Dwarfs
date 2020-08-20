@@ -35,6 +35,14 @@ On the laptop, as well as the raspberry pi make sure you have the following bash
 * ROS_MASTER_URI
 * NEATO_PORT
 
+Also, make sure that the laptop's hostname and chairbot's hostname are added to each others `/etc/hosts` file.
+Basically, on the chairbot raspberry pi, you should have in the `/etc/hosts` an entry like:
+
+```
+#ip-address hostname-of-laptop 
+192.168.1.71 ubuntu-Lenovo-YOGA-720-13IKB
+```
+
 ## Running the system:
 
 You will need multiple terminals.Make sure not to confuse the laptop's terminals with the ones where you are running a SSH session with the raspberry pi
@@ -51,6 +59,7 @@ You will need multiple terminals.Make sure not to confuse the laptop's terminals
 
 ## Troubleshooting: 
 * Make sure the laptop and the raspberry pi  are connected to the same network router.
+* Make sure that you can run `rostopic echo <topicname>` FROM the raspberry pi as well as the laptop and it gives you output. Try `/neato01/pose` as the topic once neato_localization is succesfully running.
 * If the steps on laptop aren't working: make sure the camera is plugged into the laptop, check to make sure that the aruco markers on the ground are not blocked, and make sure that neato01 and neato05 (hat) are in the frame so the markers are being picked up by the camera
 * If the step on the raspberry pi are not working: make sure the raspberry pi is turned on, plugged into the neato, and has a powersource / make sure the neato is charged
 
